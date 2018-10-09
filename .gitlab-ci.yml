@@ -6,6 +6,7 @@ deploy_production:
   only:
     - master
   script:
+    - npm install -g tslint typescript
     - npm install -g firebase-tools
     - npm install
     - firebase deploy -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --non-interactive --token $FIREBASE_DEPLOY_KEY
