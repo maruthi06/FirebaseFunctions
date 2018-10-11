@@ -7,7 +7,7 @@ const twilio = require("twilio").twiml.VoiceResponse;
 export const helloWorld = functions.https.onRequest((request, response) => {
   //response.send("Hello from Firebase! mkm test2");
   const twiml = new twilio();
-  twiml.gather();
+  twiml.gather({ input: 'speech' });
   twiml.say(twiml.toString())
   console.log(twiml.toString())
 
