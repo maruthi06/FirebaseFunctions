@@ -9,7 +9,7 @@ export const helloWorld = functions.https.onRequest((request, response) => {
   const twiml = new twilio();
   const gatherNode1 = twiml.gather({
     input: "speech dtmf",
-    timeout: 3,
+    action: 'https://us-central1-ionic-firebase-32e72.cloudfunctions.net/helloWorld1',
     numDigits: 1
   });
   gatherNode1.say("For sales, press 1. For support, press 2.");
@@ -45,3 +45,7 @@ export const helloWorld = functions.https.onRequest((request, response) => {
   response.type("text/xml");
   response.send(twiml.toString());
 });
+
+export const helloWorld1 = functions.https.onRequest((request, response) => {
+    console.log(request.body);
+  });
