@@ -8,16 +8,18 @@ export const helloWorld = functions.https.onRequest((request, response) => {
   //response.send("Hello from Firebase! mkm test2");
   const twiml = new twilio();
 
-  let gather = twiml.gather({ numDigits: 1 });
-  gather.say("For sales, press 1. For support, press 2.");
+  function gather() {
+    const gatherNode = twiml.gather({ numDigits: 1 });
+    gatherNode.say("For sales, press 1. For support, press 2.");
+  }
+
+  // If the user entered digits, process their request
   if (request.body.Digits) {
     switch (request.body.Digits) {
       case "1":
-        gather = twiml.gather({ input: "speech" });
         twiml.say("You selected sales. Good for you!");
         break;
       case "2":
-        gather = twiml.gather({ input: "speech" });
         twiml.say("You need support. We will help!");
         break;
       default:
