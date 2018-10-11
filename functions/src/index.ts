@@ -11,10 +11,10 @@ export const helloWorld = functions.https.onRequest((request, response) => {
   const gatherNode1 = twiml.gather({
     input: "speech dtmf",
     action:
-      "https://us-central1-ionic-firebase-32e72.cloudfunctions.net/helloWorld1",
+      "https://us-central1-ionic-firebase-32e72.cloudfunctions.net/helloWorld1"
   });
 
-  function gather() {
+  /* function gather() {
     const gatherNode = twiml.gather({ numDigits: 1 });
     gatherNode.say("For sales, press 1. For support, press 2.");
   }
@@ -36,7 +36,7 @@ export const helloWorld = functions.https.onRequest((request, response) => {
   } else {
     // If no input was sent, use the <Gather> verb to collect user input
     gather();
-  }
+  }*/
   console.log(request.body);
   // Render the response as XML in reply to the webhook request
   response.type("text/xml");
@@ -45,4 +45,8 @@ export const helloWorld = functions.https.onRequest((request, response) => {
 
 export const helloWorld1 = functions.https.onRequest((request, response) => {
   console.log(request.body);
+  const twiml = new twilio();
+  twiml.say(request.body.SpeechResult);
+  response.type("text/xml");
+  response.send(twiml.toString());
 });
