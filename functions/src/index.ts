@@ -7,15 +7,12 @@ const twilio = require("twilio").twiml.VoiceResponse;
 export const helloWorld = functions.https.onRequest((request, response) => {
   //response.send("Hello from Firebase! mkm test2");
   const twiml = new twilio();
+  twiml.say("say anything");
   const gatherNode1 = twiml.gather({
     input: "speech dtmf",
-    action: 'https://us-central1-ionic-firebase-32e72.cloudfunctions.net/helloWorld1',
-    numDigits: 1
+    action:
+      "https://us-central1-ionic-firebase-32e72.cloudfunctions.net/helloWorld1",
   });
-  gatherNode1.say("For sales, press 1. For support, press 2.");
-
-  const data = twiml.toString();
-  console.log(data);
 
   function gather() {
     const gatherNode = twiml.gather({ numDigits: 1 });
@@ -26,7 +23,7 @@ export const helloWorld = functions.https.onRequest((request, response) => {
   if (request.body.Digits) {
     switch (request.body.Digits) {
       case "1":
-        twiml.say("You selected sales. Good for you!" + data);
+        twiml.say("You selected sales. Good for you!");
         break;
       case "2":
         twiml.say("You need support. We will help!");
@@ -47,5 +44,5 @@ export const helloWorld = functions.https.onRequest((request, response) => {
 });
 
 export const helloWorld1 = functions.https.onRequest((request, response) => {
-    console.log(request.body);
-  });
+  console.log(request.body);
+});
