@@ -7,7 +7,11 @@ const twilio = require("twilio").twiml.VoiceResponse;
 export const helloWorld = functions.https.onRequest((request, response) => {
   //response.send("Hello from Firebase! mkm test2");
   const twiml = new twilio();
-  const gatherNode1 = twiml.gather({ input: "speech" });
+  const gatherNode1 = twiml.gather({
+    input: "speech dtmf",
+    timeout: 3,
+    numDigits: 1
+  });
   gatherNode1.say("For sales, press 1. For support, press 2.");
 
   const data = twiml.toString();
@@ -22,7 +26,7 @@ export const helloWorld = functions.https.onRequest((request, response) => {
   if (request.body.Digits) {
     switch (request.body.Digits) {
       case "1":
-        twiml.say("You selected sales. Good for you!"+ data);
+        twiml.say("You selected sales. Good for you!" + data);
         break;
       case "2":
         twiml.say("You need support. We will help!");
