@@ -46,8 +46,11 @@ export const helloWorld = functions.https.onRequest((request, response) => {
 export const helloWorld1 = functions.https.onRequest((request, response) => {
   console.log(request.body);
   const twiml = new twilio();
+  const dial = twiml.dial({
+    callerId: '+12016455880',
+  });
+  dial.number('+918892804139');
   twiml.say(request.body.SpeechResult);
-  twiml.dial('+918892804139')
   response.type("text/xml");
   response.send(twiml.toString());
 });
